@@ -111,7 +111,7 @@ def entrenar_red_lineal():
         W -= lr * dW
         b -= lr * db
         if epoch % 50 == 0:
-            print(f"[V4] Epoch {epoch}: pérdida (MSE) = {loss:.4f}")
+            print(f"[V3] Epoch {epoch}: pérdida (MSE) = {loss:.4f}")
 
     # Clase para predecir con el modelo entrenado
     class ModeloLineal:
@@ -125,13 +125,13 @@ def entrenar_red_lineal():
 # COMPARACIÓN DE MÉTODOS
 # ===============================
 
-# Compara la precisión de las versiones 1, 2 y 4
+# Compara la precisión de las versiones 1, 2 y 3
 # con las primeras n imágenes del dataset
 def comparar_metodos(n=100):
     promedios = generar_promedios_digitos()
     modelo_lineal = entrenar_red_lineal()
 
-    aciertos_v1 = aciertos_v2 = aciertos_v4 = 0
+    aciertos_v1 = aciertos_v2 = aciertos_v3 = 0
 
     for i in range(n):
         matriz = data[i]
@@ -145,13 +145,13 @@ def comparar_metodos(n=100):
         pred_v2, _ = clasificar_digito(matriz, promedios)
         if pred_v2 == real: aciertos_v2 += 1
 
-        pred_v4 = modelo_lineal.predict(flatten)[0]
-        if pred_v4 == real: aciertos_v4 += 1
+        pred_v3 = modelo_lineal.predict(flatten)[0]
+        if pred_v3 == real: aciertos_v3 += 1
 
     print("\n--- COMPARACIÓN FINAL ---")
     print(f"Versión 1 (3 vecinos): {aciertos_v1}/{n} = {aciertos_v1/n:.2%}")
     print(f"Versión 2 (promedios): {aciertos_v2}/{n} = {aciertos_v2/n:.2%}")
-    print(f"Versión 4 (Red lineal sin activación): {aciertos_v4}/{n} = {aciertos_v4/n:.2%}")
+    print(f"Versión 3 (Red lineal): {aciertos_v3}/{n} = {aciertos_v3/n:.2%}")
 
 # ===============================
 # MAIN
@@ -176,8 +176,8 @@ def main():
         print(f"\nSoy la inteligencia artificial versión 2, y he detectado que el dígito ingresado corresponde al número {Fore.YELLOW}{digito_v2}{Style.RESET_ALL}")
 
         flat = matriz_entrada.flatten().reshape(1, -1)
-        pred_v4 = modelo_lineal.predict(flat)[0]
-        print(f"\nSoy la inteligencia artificial versión 3, y detecto que el número ingresado es: {Fore.MAGENTA}{pred_v4}{Style.RESET_ALL}")
+        pred_v3 = modelo_lineal.predict(flat)[0]
+        print(f"\nSoy la inteligencia artificial versión 3, y detecto que el número ingresado es: {Fore.MAGENTA}{pred_v3}{Style.RESET_ALL}")
 
     except Exception as e:
         print(f"\n⚠️ Error: {e}")
