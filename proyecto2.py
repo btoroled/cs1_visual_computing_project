@@ -108,7 +108,7 @@ def clasificacion_version1(tres_cercanos):
 
 # --- Entrenar red neuronal artificial (versión 3) ---
 def entrenar_red_neuronal():
-    X = np.array([img.flatten() for img in data])  # Aplana las matrices 8x8 → vectores de 64
+    X = np.array([img.flatten() for img in data])  # Aplana las matrices 8x8 → vectores de 64 features
     y = target
 
     # Dividir en datos de entrenamiento y prueba
